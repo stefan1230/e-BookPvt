@@ -1,0 +1,45 @@
+﻿@model IEnumerable<e_BookPvt.Models.Orders>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+<div class="container mt-5">
+    <h2>Manage Orders</h2>
+    <a asp-action="CreateOrderView" class="btn btn-success mb-3">Add New Order</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Book</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tbody>
+                @foreach (var order in Model)
+                {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@(order.Customer?.CustomerName ?? "N/A")</td> <!-- Null-safe navigation -->
+                    <td>@(order.Book?.Name ?? "N/A")</td>
+                    <td>@order.Quantity</td>
+                    <td>@order.TotalAmount</td>
+                    <td>@order.Orderdate.ToShortDateString()</td>
+                    <td>@order.Status</td>
+                    <td>
+                        <a asp-action="EditOrder" asp-route-id="@order.OrderId" class="btn btn-info">Edit</a>
+                        <a asp-action="DeleteOrder" asp-route-id="@order.OrderId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                }
+        </tbody>
+        </tbody>
+    </table>
+</div>

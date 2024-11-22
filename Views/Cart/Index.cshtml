@@ -1,0 +1,51 @@
+﻿@model List<e_BookPvt.Models.Books>
+
+@{
+    ViewData["Title"] = "My Cart";
+}
+
+<div class="container mt-5">
+    <h2>My Cart</h2>
+
+    @if (Model.Count == 0)
+    {
+        <p>Your cart is empty. Start adding books now!</p>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Browse Books</a>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Name</td>
+                        <td>@book.Author</td>
+                        <td>@book.Price.ToString("C")</td>
+                        <td>
+                            <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                                <input type="hidden" name="bookId" value="@book.BookId" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="mt-4">
+            <form asp-controller="Cart" asp-action="ClearCart" method="post">
+                <button type="submit" class="btn btn-warning">Clear Cart</button>
+            </form>
+            <a asp-controller="Cart" asp-action="Checkout" class="btn btn-success">Proceed to Checkout</a>
+        </div>
+    }
+</div>

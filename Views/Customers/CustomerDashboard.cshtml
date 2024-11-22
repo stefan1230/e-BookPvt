@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<div class="container mt-5">
+    <h2>Welcome, @ViewData["CustomerName"]!</h2>
+    <p>This is your dashboard where you can view your orders and manage your account.</p>
+
+    <div class="mt-4">
+        <a asp-controller="Orders" asp-action="MyOrders" class="btn btn-primary">View My Orders</a>
+        <a asp-controller="Customers" asp-action="Edit" class="btn btn-secondary">Manage My Account</a>
+        <a asp-controller="Customers" asp-action="Logout" class="btn btn-danger">Logout</a>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@model e_BookPvt.Models.Orders
+
+@{
+    ViewData["Title"] = "Delete Order";
+}
+
+<div class="container mt-5">
+    <h2>Delete Order</h2>
+    <p>Are you sure you want to delete this order?</p>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Order ID: @Model.OrderId</h5>
+            <p><strong>Customer:</strong> @Model.Customer.CustomerName</p>
+            <p><strong>Total Amount:</strong> @Model.TotalAmount</p>
+            <p><strong>Order Date:</strong> @Model.Orderdate.ToShortDateString()</p>
+        </div>
+    </div>
+
+    <form asp-action="DeleteOrder" method="post">
+        <input type="hidden" asp-for="OrderId" />
+        <button type="submit" class="btn btn-danger mt-3">Delete</button>
+        <a asp-action="ManageOrders" class="btn btn-secondary mt-3">Cancel</a>
+    </form>
+</div>

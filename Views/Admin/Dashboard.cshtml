@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+    <h2>Welcome, @ViewData["AdminName"]</h2>
+    <ul>
+        <li><a asp-action="ManageBooks">Manage Books</a></li>
+        <li><a asp-action="ManageCustomers">Manage Customers</a></li>
+        <li><a asp-action="ManageOrders">Manage Orders</a></li>
+        <li><a asp-action="GenerateReports">Generate Reports</a></li>
+    </ul>
+</div>

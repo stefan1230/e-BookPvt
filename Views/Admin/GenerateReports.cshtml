@@ -1,0 +1,63 @@
+﻿@model IEnumerable<e_BookPvt.Models.Report>
+
+@{
+    ViewData["Title"] = "Generate Reports";
+    var startDate = ViewContext.HttpContext.Request.Query["startDate"];
+    var endDate = ViewContext.HttpContext.Request.Query["endDate"];
+}
+
+<div class="container mt-5">
+    <h2>Generate Reports</h2>
+
+    <!-- Filter Form -->
+    <form method="get" asp-action="GenerateReports" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" value="@startDate" />
+            </div>
+            <div class="col-md-4">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" class="form-control" value="@endDate" />
+            </div>
+            <div class="col-md-4 mt-4">
+                <button type="submit" class="btn btn-primary">Filter</button>
+                <a asp-action="ExportReportsToCSV" asp-route-startDate="@startDate" asp-route-endDate="@endDate" class="btn btn-success">Export to CSV</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Report Table -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Book Name</th>
+                <th>Total Orders</th>
+                <th>Total Revenue</th>
+                <th>Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var report in Model)
+                {
+                    <tr>
+                        <td>@report.CustomerName</td>
+                        <td>@report.BookName</td>
+                        <td>@report.TotalOrders</td>
+                        <td>@report.TotalRevenue.ToString("C")</td>
+                        <td>@report.OrderDate.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No reports found for the selected date range.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

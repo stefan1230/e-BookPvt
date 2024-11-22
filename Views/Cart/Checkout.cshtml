@@ -1,0 +1,36 @@
+﻿@model List<e_BookPvt.Models.Books>
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container mt-5">
+    <h2>Confirm Your Order</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Name</td>
+                    <td>@book.Author</td>
+                    <td>@book.Price.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <form asp-controller="Cart" asp-action="ConfirmOrder" method="post">
+            <button type="submit" class="btn btn-success">Place Order</button>
+        </form>
+        <a asp-controller="Cart" asp-action="Index" class="btn btn-secondary">Back to Cart</a>
+    </div>
+</div>

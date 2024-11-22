@@ -1,0 +1,55 @@
+﻿@model IEnumerable<e_BookPvt.Models.Books>
+
+@{
+    ViewData["Title"] = "Welcome to E-Book System";
+}
+
+<div class="container mt-5">
+    <h2>Discover and Order Books</h2>
+
+    <!-- Search Bar -->
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="searchQuery" value="@ViewData["SearchQuery"]" placeholder="Search by book name, author, or description" />
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <!-- Book List -->
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var book in Model)
+            {
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Book Cover">
+                                <div class="card-body">
+                                    <h5 class="card-title">@book.Name</h5>
+                                    <p class="card-text">@book.Description</p>
+                                    <p class="card-text"><strong>Author:</strong> @book.Author</p>
+                                    <p class="card-text"><strong>Price:</strong> @book.Price.ToString("C")</p>
+                            @if (ViewData["CustomerEmail"] != null)
+                            {
+                                            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                                <input type="hidden" name="bookId" value="@book.BookId" />
+                                                <button type="submit" class="btn btn-success">Add to Cart</button>
+                                            </form>
+                            }
+                            else
+                            {
+                                            <a asp-controller="Customers" asp-action="Login" class="btn btn-primary">Login to Add to Cart</a>
+                            }
+                                </div>
+                            </div>
+                        </div>
+            }
+        }
+        else
+        {
+                <div class="col-12">
+                    <p class="text-center">No books found. Try searching for another term!</p>
+                </div>
+        }
+    </div>
+</div>
